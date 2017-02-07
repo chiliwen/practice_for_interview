@@ -112,6 +112,7 @@ var nameFn = obj.getName
 console.log(nameFn.apply(obj2))
 
 // 3.4.0
+// 此段代码来自于：http://https://i-solar.github.io/2016/11/06/%E4%BD%A0%E4%B8%8D%E5%BE%97%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84this-JavaScript/
 function apple () {
   // 调用的时候会发生下面的事
   // var this = o
@@ -122,7 +123,7 @@ var o = {
   name: 'apple'
   apple: apple
 }
-// 对象属性直接调用函数，即把这个对象传给 this 
+// 对象属性直接调用函数，即把这个对象传给 this
 o.apple()
 
 // 3.4.1
