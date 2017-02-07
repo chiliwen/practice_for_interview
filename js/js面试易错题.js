@@ -111,6 +111,38 @@ var nameFn = obj.getName
 // 'xiao'
 console.log(nameFn.apply(obj2))
 
+// 3.4
+/*
+this 的四种类型：
+    1. 默认绑定：什么都匹配不到的情况下，非严格模式this绑定到全局对象window或global,严格模式绑定到undefined;
+    2. 隐式绑定：函数作为对象的属性，通过对象属性的方式调用，这个时候this绑定到对象;
+    3. 显示绑定：通过apply和call调用的方式;
+    4. new绑定：通过new操作符时将this绑定到当前新创建的对象中，它们的匹配有限是是从小到大的。
+*/
+var length = 10;
+function fn() {
+    console.log(this.length)
+};
+var obj = {
+    length: 5,
+    method: function (fn) {
+        fn();
+        // 通过对象的属性去调用（数组的默认属性类型是数值而普通对象的属性类型是字符串）
+        // 而arguments确实存在一个length属性，并且值为2
+        arguments[0]();
+        fn.call(obj, 12);
+    }
+};
+/* obj.method(fn, 1) 这句代码对应：
+
+    fn();
+    arguments[0]();
+    fn.call(obj, 12);
+*/
+// 10 2 5
+obj.method(fn, 1);
+
+
 
 // 4. 函数参数
 
@@ -210,3 +242,58 @@ newObj3.name = 'xiao'
 console.log(obj3.name)
 // 'xiao'
 console.log(newObj3.name)
+
+
+
+// 循环内使用闭包
+// 闭包可以创建私有变量、创建私有函数
+/* 循环一个数组，并在3秒后打印出每个数组元素的索引 */
+// 错误：setTimeout会创建一个闭包，它可以读取外部作用域，每个循环都包含了索引i
+// 函数在3秒后执行，它打印出外部作用域中i的值，循环结束后i等于4
+const arr = [10, 12, 15, 20]
+for (var i = 0; i < arr.length; i++) {
+    setTimeout(function() {
+        console.log('The index of this number is:' + i)
+    }, 3000)
+}
+
+// 正确
+const arr = [10, 12, 15, 20]
+for (var i = 0; i < arr.length; i++) {
+    setTimeout(function(i_local) {
+        return function() {
+            console.log('The index of this number is:' + i_local)
+        }
+    }, 3000)
+}
+
+const arr = [10, 12, 15, 20]
+for (let i = 0; i < arr.length; i++) {
+    setTimeout(function() {
+            console.log('The index of this number is:' + i)
+    }, 3000)
+}
+
+
+// 函数防抖
+function debounce(fn, delay) {
+    let timer = null
+    return function() {
+        let context = this
+        let args = arguments
+        clearTimeout(timer)
+        timer = setTimeout(function() {
+            fn.apply(context, args)
+        }, delay)
+    }
+}
+
+function foo () {
+    console.log('You are scrolling!')
+}
+let elem = document.getElemnetById('container')
+elem.addEventListener('scroll', debounce(foo, 2000))
+
+
+
+//
