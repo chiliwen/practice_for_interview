@@ -134,7 +134,6 @@ var obj = {
     }
 };
 /* obj.method(fn, 1) 这句代码对应：
-
     fn();
     arguments[0]();
     fn.call(obj, 12);
