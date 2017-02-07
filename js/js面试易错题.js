@@ -111,7 +111,21 @@ var nameFn = obj.getName
 // 'xiao'
 console.log(nameFn.apply(obj2))
 
-// 3.4
+// 3.4.0
+function apple () {
+  // 调用的时候会发生下面的事
+  // var this = o
+  console.log(this.name)
+}
+var name = 'apple'
+var o = {
+  name: 'apple'
+  apple: apple
+}
+// 对象属性直接调用函数，即把这个对象传给 this 
+o.apple()
+
+// 3.4.1
 /*
 this 的四种类型：
     1. 默认绑定：什么都匹配不到的情况下，非严格模式this绑定到全局对象window或global,严格模式绑定到undefined;
