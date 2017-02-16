@@ -310,4 +310,22 @@ elem.addEventListener('scroll', debounce(foo, 2000))
 
 
 
-//
+// Feb 16th 2017
+// 反转
+// 数组反转
+var a = [1, 2, 3]
+var b = a.reverse()
+// [3, 2, 1]
+console.log(b)
+
+// 字符串反转
+var c = 'abc'
+var b = c.split('').reverse().join('').toString()
+// "cba"
+console.log(b)
+
+// 整数反转
+var num = 123
+var num2 = parseInt(String(num).split('').reverse().join(''))
+// 321
+console.log(num2)
