@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+    <body>
+        <ul id="todo-app">
+            <li class="item">A</li>
+            <li class="item">B</li>
+            <li class="item">C</li>
+            <li class="item">D</li>
+        </ul>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                let app = document.querySelector('#todo-app')
+                app.addEventListener('click', function(e) {
+                    if (e.target && e.target.nodeName === 'LI') {
+                        let item = e.target
+                        alert('you clicked on item' + item.innerHTML)
+                    }
+                })
+            })
+        </script>
+    </body>
+</html>
